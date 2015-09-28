@@ -21,9 +21,11 @@ def allowed_file(filename):
            filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
 
 
-@app.route("/images/face_counter/<string:variable>/<string:token>", methods=['GET', 'POST'])
-def index(variable, token):
+@app.route("/images/face_counter/variables", methods=['GET', 'POST'])
+def index():
     if request.method == 'POST':
+        variable = request.args.get('variable', '')
+        token = request.args.get('token', '')
         rsp = requests.get(
             '{api_url}/variables/{variable}'.format(api_url=API_URL_UBIDOTS, variable=variable),
             headers={'x-auth-token': token}
