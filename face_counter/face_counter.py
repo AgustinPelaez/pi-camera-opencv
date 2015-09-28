@@ -31,7 +31,9 @@ def index(variable, token):
 
         # if the token not authorized or the variable does not exist
         if rsp.status_code != 200:
-            return jsonify({"error": rsp.json()})
+            response = jsonify({"error": rsp.json()})
+            response.status_code = rsp.status_code
+            return response
 
         file_req = request.files['file']
         if file_req and allowed_file(file_req.filename):
@@ -58,9 +60,12 @@ def index(variable, token):
                 headers={'x-auth-token': token}
             )
 
-            return jsonify({"faces": len(faces), "api": rsp.json()})
+            response = jsonify({"faces": len(faces), "api": rsp.json()})
+            response.status_code = rsp.status_code
         else:
-            return jsonify({"error": 'extension not allowed'})
+            response = jsonify({"error": 'extension not allowed'})
+            response.status_code = 403
+        return response
 
     return jsonify({"usage": "POST /face_counter/"})
 
