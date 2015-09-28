@@ -21,7 +21,7 @@ def allowed_file(filename):
            filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
 
 
-@app.route("/images/face_counter/variables", methods=['GET', 'POST'])
+@app.route("/images/face_counter", methods=['GET', 'POST'])
 def index():
     if request.method == 'POST':
         variable = request.args.get('variable', '')
