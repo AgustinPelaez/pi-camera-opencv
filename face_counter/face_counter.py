@@ -17,7 +17,7 @@ def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
 
-@app.route("/face_counter/", methods=['GET', 'POST'])
+@app.route("/images/face_counter", methods=['GET', 'POST'])
 def index():
     if request.method == 'POST':
         file = request.files['file']
